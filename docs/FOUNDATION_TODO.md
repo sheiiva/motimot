@@ -7,7 +7,7 @@ Checklist for the **Foundation** phase (see [GAME_SPECIFICATION.md](GAME_SPECIFI
 ## 1. Project setup
 
 - [x] **1.1** Define folder structure under `Assets/` for the game (e.g. `Scripts/`, `Scripts/Runtime/`, `Scripts/Editor/`, `Data/`, `Prefabs/`, `Scenes/` — adjust to your convention). → `Scripts/Runtime`, `Scripts/Editor`, `Data`, `Prefabs`; see `Assets/README.md`.
-- [ ] **1.2** Add a main game scene (or designate `SampleScene` as the game scene) and document which scene is the entry point.
+- [x] **1.2** Add a main game scene (or designate `SampleScene` as the game scene) and document which scene is the entry point. → `Assets/Scenes/Main.unity` is the default scene (index 0 in Build Settings); see `Assets/README.md` § Entry point.
 - [ ] **1.3** Define coding style and assembly layout: namespaces, naming (PascalCase for public types, etc.), and whether to use one or more `.asmdef` for game code.
 - [ ] **1.4** Document where game logic lives: which folders for core game state, UI, data (dictionary), and any editor tools.
 - [ ] **1.5** (Optional) Add a minimal README or `Assets/.../README` describing the project layout for future contributors.
