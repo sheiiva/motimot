@@ -20,6 +20,15 @@ The game loads the word list from an **open-source URL** by default so the list 
 - **Path:** `Assets/Data/words-fallback.txt`
 - Same format: one word per line, UTF-8. Used when the default URL cannot be loaded (offline or error).
 
+## Loading (runtime and editor); encoding
+
+All loading uses **UTF-8** so accents (e.g. á, ñ) are correct.
+
+- **Runtime — URL:** `LoadFromUrlCoroutine(url, onSuccess, onError)` — response is interpreted as UTF-8.
+- **Runtime — fallback:** `LoadFromTextAsset(TextAsset)` for an asset (e.g. in Resources) or `LoadFromText(string)` if you already have the text.
+- **Editor or local file:** `LoadFromFile(path)` — reads the file with `System.Text.Encoding.UTF8`; use for validation in editor or when the path is valid (e.g. `Application.persistentDataPath`).
+- **Raw bytes:** `LoadFromBytes(byte[])` — decodes with UTF-8, then parses one word per line.
+
 ## Usage
 
 - **Validation:** `WordListLoader.IsValidWord(word)` returns true only if the word is in the loaded list and has the correct length.
