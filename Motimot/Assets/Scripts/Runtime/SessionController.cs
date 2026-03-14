@@ -60,5 +60,45 @@ namespace Motimot
             _state = new GameState(_state.HiddenWord, _state.Attempts, newRow, _state.Phase);
             return true;
         }
+
+        /// <summary>
+        /// Submits the current row (1.3). Triggers validation and feedback when the row is complete.
+        /// Only when Phase is InProgress, row length equals WordLength, and word is valid.
+        /// </summary>
+        public SubmitResult Submit()
+        {
+            if (_state.Phase != GamePhase.InProgress)
+            {
+                return SubmitResult.IgnoredGameOver;
+            }
+
+            if (_state.CurrentRowLetters.Length != GameConstants.WordLength)
+            {
+                return SubmitResult.RowIncomplete;
+            }
+
+            string guess = _state.CurrentRowLetters.Trim().ToLowerInvariant();
+            if (!_wordListLoader.IsValidWord(guess))
+            {
+                return SubmitResult.InvalidWord;
+            }
+
+            Tile[] tiles = FeedbackComputer.Compute(guess, _state.HiddenWord);
+            Row row = new Row(tiles);
+            var newAttempts = new List<Row>(_state.Attempts) { row };
+
+            GamePhase newPhase = _state.Phase;
+            if (guess == _state.HiddenWord.ToLowerInvariant())
+            {
+                newPhase = GamePhase.Won;
+            }
+            else if (newAttempts.Count >= GameConstants.MaxAttempts)
+            {
+                newPhase = GamePhase.Lost;
+            }
+
+            _state = new GameState(_state.HiddenWord, newAttempts, string.Empty, newPhase);
+            return SubmitResult.Accepted;
+        }
     }
 }
