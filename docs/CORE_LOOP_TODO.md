@@ -15,9 +15,9 @@ Checklist for the **Core loop** phase (see [GAME_SPECIFICATION.md](GAME_SPECIFIC
 
 ## 2. Validation
 
-- [ ] **2.1** Before accepting a submit: ensure current row has exactly `GameConstants.WordLength` letters.
-- [ ] **2.2** Call `WordListLoader.IsValidWord`; if invalid, reject submission and optionally signal "not a valid word" (no state change).
-- [ ] **2.3** Only when valid: proceed to feedback logic and state update.
+- [x] **2.1** Before accepting a submit: ensure current row has exactly `GameConstants.WordLength` letters. → In `SessionController.Submit()` (RowIncomplete).
+- [x] **2.2** Call `WordListLoader.IsValidWord`; if invalid, reject submission and optionally signal "not a valid word" (no state change). → In `SessionController.Submit()` (InvalidWord).
+- [x] **2.3** Only when valid: proceed to feedback logic and state update. → In `SessionController.Submit()`.
 
 ---
 
