@@ -13,6 +13,8 @@ namespace Motimot
     [RequireComponent(typeof(GraphicRaycaster))]
     public sealed class GameGridView : MonoBehaviour
     {
+        private SessionController _controller;
+
         [SerializeField] private float _cellSize = 64f;
         [SerializeField] private float _spacing = 8f;
         [SerializeField] private float _verticalMargin = 40f;
@@ -34,6 +36,47 @@ namespace Motimot
             _tileTexts != null && row >= 0 && row < GameConstants.MaxAttempts && col >= 0 && col < GameConstants.WordLength
                 ? _tileTexts[row][col]
                 : null;
+
+        /// <summary>Binds to session controller and subscribes to state changes (1.2). Call from bootstrap.</summary>
+        public void Bind(SessionController controller)
+        {
+            Unbind();
+            _controller = controller;
+            if (_controller != null)
+            {
+                _controller.OnStateChanged += RefreshFromState;
+                RefreshFromState(_controller.State);
+            }
+        }
+
+        /// <summary>Unsubscribes from controller. Called automatically on destroy.</summary>
+        public void Unbind()
+        {
+            if (_controller != null)
+            {
+                _controller.OnStateChanged -= RefreshFromState;
+                _controller = null;
+            }
+        }
+
+        private void OnDestroy()
+        {
+            Unbind();
+        }
+
+        /// <summary>Updates grid from game state. Called when state changes.</summary>
+        public void RefreshFromState(GameState state)
+        {
+            if (state == null || _tileBackgrounds == null || _tileTexts == null) return;
+            for (int row = 0; row < GameConstants.MaxAttempts; row++)
+            {
+                for (int col = 0; col < GameConstants.WordLength; col++)
+                {
+                    _tileTexts[row][col].text = "";
+                    _tileBackgrounds[row][col].color = _tileDefaultColor;
+                }
+            }
+        }
 
         private void Awake()
         {
