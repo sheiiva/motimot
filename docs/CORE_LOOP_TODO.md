@@ -6,7 +6,7 @@ Checklist for the **Core loop** phase (see [GAME_SPECIFICATION.md](GAME_SPECIFIC
 
 ## 1. Input
 
-- [ ] **1.1** Capture letter input (keyboard or on-screen): add typed letter to current row, up to `GameConstants.WordLength` characters.
+- [x] **1.1** Capture letter input (keyboard or on-screen): add typed letter to current row, up to `GameConstants.WordLength` characters. → `SessionController.AddLetter(char)`.
 - [ ] **1.2** Capture backspace: remove last letter from current row.
 - [ ] **1.3** Capture submit: trigger validation and feedback when the row is complete (length = WordLength).
 - [ ] **1.4** Ignore or block input when the session is over (Phase is Won or Lost).
