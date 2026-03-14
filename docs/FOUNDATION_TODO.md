@@ -16,10 +16,10 @@ Checklist for the **Foundation** phase (see [GAME_SPECIFICATION.md](GAME_SPECIFI
 
 ## 2. Data model
 
-- [ ] **2.1** Define constants: word length (e.g. 5), max attempts (e.g. 6), and any mode-specific values.
-- [ ] **2.2** Define a **letter feedback** enum or struct (e.g. `CorrectPosition`, `WrongPosition`, `Absent` / green, yellow, gray).
-- [ ] **2.3** Define a **tile** representation: letter + feedback state (and optionally position in row).
-- [ ] **2.4** Define a **row** representation: ordered list of tiles for one guess.
+- [x] **2.1** Define constants: word length (e.g. 5), max attempts (e.g. 6), and any mode-specific values. → `GameConstants.cs`: `WordLength = 5`, `MaxAttempts = 6`.
+- [x] **2.2** Define a **letter feedback** enum or struct (e.g. `CorrectPosition`, `WrongPosition`, `Absent` / green, yellow, gray). → `LetterFeedback.cs`: enum `CorrectPosition`, `WrongPosition`, `Absent`.
+- [x] **2.3** Define a **tile** representation: letter + feedback state (and optionally position in row). → `Tile.cs`: readonly struct with `Letter`, `Feedback`, `IndexInRow`.
+- [x] **2.4** Define a **row** representation: ordered list of tiles for one guess. → `Row.cs`: sealed class with `Tiles` (IReadOnlyList&lt;Tile&gt;), constructor from `Tile[]` of length WordLength.
 - [ ] **2.5** Define **game state**: hidden word, list of submitted attempts (rows with feedback), current row (in progress), win/lose/in-progress.
 - [ ] **2.6** Decide how the hidden word and attempts are stored at runtime (e.g. plain C# types, ScriptableObject, or data containers) and document the choice.
 
