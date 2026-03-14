@@ -63,6 +63,7 @@ namespace Motimot
 
             string newRow = _state.CurrentRowLetters.Substring(0, _state.CurrentRowLetters.Length - 1);
             _state = new GameState(_state.HiddenWord, _state.Attempts, newRow, _state.Phase);
+            OnStateChanged?.Invoke(_state);
             return true;
         }
 
@@ -103,6 +104,7 @@ namespace Motimot
             }
 
             _state = new GameState(_state.HiddenWord, newAttempts, string.Empty, newPhase);
+            OnStateChanged?.Invoke(_state);
             return SubmitResult.Accepted;
         }
     }
