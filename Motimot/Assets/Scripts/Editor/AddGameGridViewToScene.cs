@@ -7,8 +7,7 @@ using UnityEngine.UI;
 namespace Motimot.Editor
 {
     /// <summary>
-    /// Editor menu: Add GameGridView (Canvas + grid) to the active scene.
-    /// Use Tools → Motimot → Add GameGridView to Scene.
+    /// Editor menu: Add GameGridView, Bootstrap, and wiring to the active scene.
     /// </summary>
     public static class AddGameGridViewToScene
     {
@@ -37,6 +36,38 @@ namespace Motimot.Editor
 
             Undo.RegisterCreatedObjectUndo(go, "Add GameGridView");
             EditorSceneManager.MarkSceneDirty(EditorSceneManager.GetActiveScene());
+        }
+
+        [MenuItem("Tools/Motimot/Add Game Bootstrap")]
+        public static void AddBootstrap()
+        {
+            var bootstrap = Object.FindObjectOfType<GameBootstrap>();
+            if (bootstrap != null)
+            {
+                Debug.Log("GameBootstrap already exists in scene.");
+                Selection.activeGameObject = bootstrap.gameObject;
+                return;
+            }
+
+            var go = new GameObject("GameBootstrap");
+            var comp = go.AddComponent<GameBootstrap>();
+            go.AddComponent<KeyboardInputBridge>();
+
+            var grid = Object.FindObjectOfType<GameGridView>();
+            if (grid != null)
+            {
+                var so = new SerializedObject(comp);
+                so.FindProperty("_gameGridView").objectReferenceValue = grid;
+                so.FindProperty("_keyboardInputBridge").objectReferenceValue = go.GetComponent<KeyboardInputBridge>();
+                var fallback = AssetDatabase.LoadAssetAtPath<TextAsset>("Assets/Data/words-fallback.txt");
+                if (fallback != null)
+                    so.FindProperty("_fallbackWordList").objectReferenceValue = fallback;
+                so.ApplyModifiedPropertiesWithoutUndo();
+            }
+
+            Undo.RegisterCreatedObjectUndo(go, "Add Game Bootstrap");
+            EditorSceneManager.MarkSceneDirty(EditorSceneManager.GetActiveScene());
+            Selection.activeGameObject = go;
         }
     }
 }

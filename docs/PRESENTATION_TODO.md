@@ -23,8 +23,8 @@ Checklist for the **Presentation** phase (see [GAME_SPECIFICATION.md](GAME_SPECI
 
 ## 3. Bootstrap and wiring (scene)
 
-- [ ] **3.1** Bootstrap in Main scene: load word list (URL or fallback), create `SessionController` via `SessionStarter.StartSession`, assign to `KeyboardInputBridge.Controller`.
-- [ ] **3.2** Grid (and optional keyboard) subscribe to `SessionController.OnStateChanged` to refresh from `GameState`.
+- [x] **3.1** Bootstrap in Main scene: load word list (URL or fallback), create `SessionController` via `SessionStarter.StartSession`, assign to `KeyboardInputBridge.Controller`.
+- [x] **3.2** Grid (and optional keyboard) subscribe to `SessionController.OnStateChanged` to refresh from `GameState`.
 
 ---
 
