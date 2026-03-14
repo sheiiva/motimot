@@ -20,7 +20,7 @@ Checklist for the **Foundation** phase (see [GAME_SPECIFICATION.md](GAME_SPECIFI
 - [x] **2.2** Define a **letter feedback** enum or struct (e.g. `CorrectPosition`, `WrongPosition`, `Absent` / green, yellow, gray). → `LetterFeedback.cs`: enum `CorrectPosition`, `WrongPosition`, `Absent`.
 - [x] **2.3** Define a **tile** representation: letter + feedback state (and optionally position in row). → `Tile.cs`: readonly struct with `Letter`, `Feedback`, `IndexInRow`.
 - [x] **2.4** Define a **row** representation: ordered list of tiles for one guess. → `Row.cs`: sealed class with `Tiles` (IReadOnlyList&lt;Tile&gt;), constructor from `Tile[]` of length WordLength.
-- [ ] **2.5** Define **game state**: hidden word, list of submitted attempts (rows with feedback), current row (in progress), win/lose/in-progress.
+- [x] **2.5** Define **game state**: hidden word, list of submitted attempts (rows with feedback), current row (in progress), win/lose/in-progress. → `GamePhase.cs`: enum `InProgress`, `Won`, `Lost`. `GameState.cs`: sealed class with `HiddenWord`, `Attempts` (IReadOnlyList&lt;Row&gt;), `CurrentRowLetters`, `Phase`, `AttemptsCount`.
 - [ ] **2.6** Decide how the hidden word and attempts are stored at runtime (e.g. plain C# types, ScriptableObject, or data containers) and document the choice.
 
 ---
