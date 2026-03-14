@@ -31,10 +31,10 @@ Checklist for the **Core loop** phase (see [GAME_SPECIFICATION.md](GAME_SPECIFIC
 
 ## 4. State updates
 
-- [ ] **4.1** Add the new `Row` to attempts; clear current row for the next guess.
-- [ ] **4.2** If guess equals hidden word: set Phase to Won.
-- [ ] **4.3** If guess is wrong and attempts count reached `GameConstants.MaxAttempts`: set Phase to Lost.
-- [ ] **4.4** Create a new `GameState` snapshot (immutable) and make it the current state for the session.
+- [x] **4.1** Add the new `Row` to attempts; clear current row for the next guess. → In `SessionController.Submit()` (newAttempts, currentRowLetters = "").
+- [x] **4.2** If guess equals hidden word: set Phase to Won. → In `SessionController.Submit()`.
+- [x] **4.3** If guess is wrong and attempts count reached `GameConstants.MaxAttempts`: set Phase to Lost. → In `SessionController.Submit()`.
+- [x] **4.4** Create a new `GameState` snapshot (immutable) and make it the current state for the session. → In `SessionController.Submit()`.
 
 ---
 
