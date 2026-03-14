@@ -19,6 +19,9 @@ namespace Motimot
         [SerializeField] private float _spacing = 8f;
         [SerializeField] private float _verticalMargin = 40f;
         [SerializeField] private Color _tileDefaultColor = new Color(0.22f, 0.22f, 0.22f);
+        [SerializeField] private Color _correctPositionColor = new Color(0.4f, 0.62f, 0.35f);
+        [SerializeField] private Color _wrongPositionColor = new Color(0.78f, 0.68f, 0.24f);
+        [SerializeField] private Color _absentColor = new Color(0.4f, 0.4f, 0.4f);
 
         private GridLayoutGroup _gridLayout;
         private RectTransform _gridRootRect;
@@ -74,7 +77,7 @@ namespace Motimot
                 {
                     string letter = GetLetterForTile(state, row, col);
                     _tileTexts[row][col].text = letter;
-                    _tileBackgrounds[row][col].color = _tileDefaultColor;
+                    _tileBackgrounds[row][col].color = GetColorForTile(state, row, col);
                 }
             }
         }
@@ -92,6 +95,21 @@ namespace Motimot
                 return char.ToUpperInvariant(state.CurrentRowLetters[col]).ToString();
             }
             return "";
+        }
+
+        private Color GetColorForTile(GameState state, int row, int col)
+        {
+            if (row >= state.AttemptsCount)
+                return _tileDefaultColor;
+            var attempt = state.Attempts[row];
+            if (col >= attempt.Tiles.Count) return _tileDefaultColor;
+            return attempt.Tiles[col].Feedback switch
+            {
+                LetterFeedback.CorrectPosition => _correctPositionColor,
+                LetterFeedback.WrongPosition => _wrongPositionColor,
+                LetterFeedback.Absent => _absentColor,
+                _ => _tileDefaultColor
+            };
         }
 
         private void Awake()

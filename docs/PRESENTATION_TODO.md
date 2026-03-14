@@ -9,7 +9,7 @@ Checklist for the **Presentation** phase (see [GAME_SPECIFICATION.md](GAME_SPECI
 - [x] **1.1** Display the grid: `GameConstants.MaxAttempts` rows × `GameConstants.WordLength` tiles (e.g. 6×5). → `GameGridView`: builds 6×5 UI grid at runtime; add to empty GameObject in Main scene.
 - [x] **1.2** Bind grid to `GameState`: show submitted attempts (rows with letters and feedback) and the current row in progress (letters only).
 - [x] **1.3** Show letters in each tile (from `Row.Tiles` or `CurrentRowLetters`).
-- [ ] **1.4** Apply feedback colors after submit: green (CorrectPosition), yellow (WrongPosition), gray (Absent). Update when `OnStateChanged` fires.
+- [x] **1.4** Apply feedback colors after submit: green (CorrectPosition), yellow (WrongPosition), gray (Absent). Update when `OnStateChanged` fires.
 
 ---
 
