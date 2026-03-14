@@ -1,3 +1,4 @@
+using System;
 using System.Collections.Generic;
 
 namespace Motimot
@@ -12,6 +13,9 @@ namespace Motimot
 
         /// <summary>Current game state. Updated when input is processed.</summary>
         public GameState State => _state;
+
+        /// <summary>Raised when state changes (5.4). Subscribe from presentation layer to update grid, keyboard, win/lose UI.</summary>
+        public event Action<GameState> OnStateChanged;
 
         public SessionController(WordListLoader wordListLoader, string hiddenWord)
         {
@@ -37,6 +41,7 @@ namespace Motimot
 
             string newRow = _state.CurrentRowLetters + char.ToLowerInvariant(letter);
             _state = new GameState(_state.HiddenWord, _state.Attempts, newRow, _state.Phase);
+            OnStateChanged?.Invoke(_state);
             return true;
         }
 
