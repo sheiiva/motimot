@@ -78,7 +78,20 @@ Scripts in `Scripts/Runtime/` must not depend on UnityEditor. Scripts in `Script
 
 ---
 
-## 6. Commits
+## 6. Runtime state storage
+
+Session state (hidden word, attempts, current row, phase) is stored in **plain C# types** only:
+
+- **GameState**, **Row**, **Tile**, **LetterFeedback**, **GamePhase** — all in `Motimot` namespace under `Scripts/Runtime/`.
+- **No ScriptableObject** for game/session state: ScriptableObjects are for project assets (e.g. config, word-list references), not for per-session data.
+- **Immutable snapshots:** `GameState` is read-only; the game loop creates a new instance when the player types or submits (no in-place mutation of state).
+- **Containers:** `IReadOnlyList<Row>` for attempts; `string` for `CurrentRowLetters` and `HiddenWord`. Use `List<Row>` (or similar) when building state; expose as `IReadOnlyList` on `GameState`.
+
+Dictionary data (word lists) lives in **assets** under `Data/` (e.g. text/JSON); loading and validation are in C#. The **hidden word** for a session is chosen at session start and held in `GameState.HiddenWord` for the lifetime of that session.
+
+---
+
+## 7. Commits
 
 - **Format:** short subject line (imperative, ~50 chars); optional body for detail. Example: `Add dictionary loader and daily word selection`.
 - **No Cursor (or other tool) attribution** in commit messages. Use `git commit -F <file>` (or `-F -` with stdin) so no extra line is appended.
@@ -86,6 +99,6 @@ Scripts in `Scripts/Runtime/` must not depend on UnityEditor. Scripts in `Script
 
 ---
 
-## 7. Terminology
+## 8. Terminology
 
 Use the terms from [GAME_SPECIFICATION.md](GAME_SPECIFICATION.md) § Nomenclature: hidden word, guess/attempt, tile, row, grid, feedback (CorrectPosition / WrongPosition / Absent), dictionary, session.
