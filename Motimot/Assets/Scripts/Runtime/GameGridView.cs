@@ -15,9 +15,11 @@ namespace Motimot
     {
         [SerializeField] private float _cellSize = 64f;
         [SerializeField] private float _spacing = 8f;
+        [SerializeField] private float _verticalMargin = 40f;
         [SerializeField] private Color _tileDefaultColor = new Color(0.22f, 0.22f, 0.22f);
 
         private GridLayoutGroup _gridLayout;
+        private RectTransform _gridRootRect;
         private Image[][] _tileBackgrounds;
         private Text[][] _tileTexts;
 
@@ -35,7 +37,45 @@ namespace Motimot
 
         private void Awake()
         {
+            EnsureRootRectTransform();
             BuildGrid();
+        }
+
+        private void Start()
+        {
+            ScaleGridToFit();
+        }
+
+        private void ScaleGridToFit()
+        {
+            if (_gridRootRect == null) return;
+            var rootRect = transform as RectTransform;
+            if (rootRect == null) return;
+
+            Canvas.ForceUpdateCanvases();
+            var rootSize = rootRect.rect.size;
+            var availableHeight = Mathf.Max(0, rootSize.y - 2f * _verticalMargin);
+            var availableWidth = rootSize.x;
+            if (availableHeight <= 0 || availableWidth <= 0) return;
+
+            var gridSize = _gridRootRect.sizeDelta;
+            var scaleX = availableWidth / gridSize.x;
+            var scaleY = availableHeight / gridSize.y;
+            var scale = Mathf.Min(scaleX, scaleY, 1f);
+            _gridRootRect.localScale = new Vector3(scale, scale, 1f);
+        }
+
+        private void EnsureRootRectTransform()
+        {
+            var rect = transform as RectTransform;
+            if (rect == null) return;
+            if (rect.anchorMin != Vector2.zero || rect.anchorMax != Vector2.one)
+            {
+                rect.anchorMin = Vector2.zero;
+                rect.anchorMax = Vector2.one;
+                rect.offsetMin = Vector2.zero;
+                rect.offsetMax = Vector2.zero;
+            }
         }
 
         private void BuildGrid()
@@ -43,12 +83,12 @@ namespace Motimot
             var gridRoot = new GameObject("Grid");
             gridRoot.transform.SetParent(transform, false);
 
-            var rect = gridRoot.AddComponent<RectTransform>();
-            rect.anchorMin = new Vector2(0.5f, 0.5f);
-            rect.anchorMax = new Vector2(0.5f, 0.5f);
-            rect.pivot = new Vector2(0.5f, 0.5f);
-            rect.anchoredPosition = Vector2.zero;
-            rect.sizeDelta = new Vector2(
+            _gridRootRect = gridRoot.AddComponent<RectTransform>();
+            _gridRootRect.anchorMin = new Vector2(0.5f, 0.5f);
+            _gridRootRect.anchorMax = new Vector2(0.5f, 0.5f);
+            _gridRootRect.pivot = new Vector2(0.5f, 0.5f);
+            _gridRootRect.anchoredPosition = Vector2.zero;
+            _gridRootRect.sizeDelta = new Vector2(
                 GameConstants.WordLength * _cellSize + (GameConstants.WordLength - 1) * _spacing,
                 GameConstants.MaxAttempts * _cellSize + (GameConstants.MaxAttempts - 1) * _spacing);
 
