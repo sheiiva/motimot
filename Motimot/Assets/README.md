@@ -15,6 +15,18 @@ Existing top-level assets (e.g. `DefaultVolumeProfile`, `InputSystem_Actions`) s
 
 ---
 
+## Where game logic lives
+
+| Concern | Location | Notes |
+|--------|----------|--------|
+| **Core game state** | `Scripts/Runtime/` | Hidden word, attempts, current row, win/lose. Types like `GameState`, session controller. |
+| **UI (logic & binding)** | `Scripts/Runtime/` | Presenters, input handling, updating grid/keyboard from state. Optionally a `Runtime/UI/` subfolder if it grows. |
+| **UI (prefabs & hierarchy)** | `Prefabs/`, scene hierarchy | Tile, row, virtual keyboard prefabs; layout in `Scenes/Main.unity`. |
+| **Data (dictionary)** | `Data/` for word lists and assets; `Scripts/Runtime/` for loading, validation, and daily-word selection | Dictionary file(s) in Data; C# that loads and validates lives in Runtime. |
+| **Editor tools** | `Scripts/Editor/` | Dictionary validation, debug menus, any Editor-only utilities. |
+
+---
+
 ## Entry point — main game scene
 
 **Main game scene:** `Assets/Scenes/Main.unity`
