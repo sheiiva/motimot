@@ -1,0 +1,33 @@
+---
+description: Motimot project coding style, assemblies, and commit format — follow in all changes
+alwaysApply: true
+---
+
+# Motimot project standards
+
+When editing this repo (Unity C# game, word-of-the-day), always follow these rules.
+
+## Coding style (C#)
+
+- **Namespaces:** `Motimot` for runtime code (`Assets/Scripts/Runtime/`), `Motimot.Editor` for editor-only code (`Assets/Scripts/Editor/`).
+- **Naming:** PascalCase for types, public/protected members, constants; camelCase for private fields, parameters, locals. Interfaces: `I` prefix (e.g. `IWordProvider`).
+- **Files:** One main type per file; filename = type name (e.g. `GameState.cs`).
+- **Style:** 4 spaces, always use braces, prefer `sealed` and `readonly` where appropriate. Use [GAME_SPECIFICATION](docs/GAME_SPECIFICATION.md) nomenclature (hidden word, guess, tile, row, feedback, etc.).
+
+Full details: **docs/CODING_STYLE_AND_ASSEMBLIES.md**.
+
+## Assemblies
+
+- **Motimot** (`Scripts/Runtime/Motimot.asmdef`): all game logic and runtime code.
+- **Motimot.Editor** (`Scripts/Editor/Motimot.Editor.asmdef`): editor tools only; references `Motimot`. No UnityEditor code in Runtime.
+
+## Commits
+
+- **Message:** Short imperative subject (~50 chars); optional body. No tool/watermark attribution (e.g. no "Made with Cursor").
+- **Command:** Use `git commit -F <file>` or `printf '%s' "message" | git commit -F -` so nothing is appended to the message.
+
+## References
+
+- Game spec and nomenclature: **docs/GAME_SPECIFICATION.md**
+- Coding style and asmdef: **docs/CODING_STYLE_AND_ASSEMBLIES.md**
+- Assets layout and main scene: **Motimot/Assets/README.md**

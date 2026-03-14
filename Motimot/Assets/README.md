@@ -4,8 +4,8 @@ Folder structure for the word-of-the-day game.
 
 | Folder | Purpose |
 |--------|---------|
-| **Scripts/Runtime** | Game logic, data model, and runtime behaviour (builds into the game). |
-| **Scripts/Editor** | Editor-only tools and utilities (e.g. dictionary validation, debug menus). |
+| **Scripts/Runtime** | Game logic, data model, and runtime behaviour; assembly **Motimot** (`Motimot.asmdef`). |
+| **Scripts/Editor** | Editor-only tools and utilities; assembly **Motimot.Editor** (`Motimot.Editor.asmdef`), references Motimot. |
 | **Data** | Word lists, config files, and other non-code data (e.g. dictionary text/JSON). |
 | **Prefabs** | Reusable Unity prefabs (tiles, rows, keyboard, etc.). |
 | **Scenes** | Game scenes (e.g. main game, menus). |
