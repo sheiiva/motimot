@@ -41,7 +41,7 @@ Checklist for the **Core loop** phase (see [GAME_SPECIFICATION.md](GAME_SPECIFIC
 ## 5. Wiring and session controller
 
 - [x] **5.1** Implement or designate a session controller that holds: `WordListLoader`, current `GameState`, hidden word for the session. → `SessionController`.
-- [ ] **5.2** On session start: load word list (or use cached), get daily word, create initial GameState (empty attempts, empty current row, Phase.InProgress).
+- [x] **5.2** On session start: load word list (or use cached), get daily word, create initial GameState (empty attempts, empty current row, Phase.InProgress). → `SessionStarter.StartSession(loader, dateForWord?)`.
 - [ ] **5.3** Connect input events (letter, backspace, submit) to the controller; controller performs validation, feedback, and state updates.
 - [ ] **5.4** Expose the current GameState (or events) so the presentation layer can react (grid, keyboard, win/lose UI).
 
