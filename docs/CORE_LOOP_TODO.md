@@ -23,9 +23,9 @@ Checklist for the **Core loop** phase (see [GAME_SPECIFICATION.md](GAME_SPECIFIC
 
 ## 3. Feedback logic
 
-- [ ] **3.1** For a submitted guess (string) and hidden word, compute per-letter `LetterFeedback` (CorrectPosition / WrongPosition / Absent).
-- [ ] **3.2** Handle repeated letters: each occurrence in the hidden word is "consumed" at most once; green (correct position) takes priority over yellow (wrong position). See game spec nomenclature (repeated letters).
-- [ ] **3.3** Build a `Row` (array of `Tile`) from the guess and computed feedback.
+- [x] **3.1** For a submitted guess (string) and hidden word, compute per-letter `LetterFeedback` (CorrectPosition / WrongPosition / Absent). → `FeedbackComputer.Compute`.
+- [x] **3.2** Handle repeated letters: each occurrence in the hidden word is "consumed" at most once; green (correct position) takes priority over yellow (wrong position). → In `FeedbackComputer.Compute` (two-pass).
+- [x] **3.3** Build a `Row` (array of `Tile`) from the guess and computed feedback. → `FeedbackComputer.Compute` returns `Tile[]`; `SessionController.Submit` builds `Row`.
 
 ---
 
