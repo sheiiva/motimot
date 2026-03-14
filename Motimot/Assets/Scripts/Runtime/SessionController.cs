@@ -39,5 +39,26 @@ namespace Motimot
             _state = new GameState(_state.HiddenWord, _state.Attempts, newRow, _state.Phase);
             return true;
         }
+
+        /// <summary>
+        /// Removes the last letter from the current row (1.2). Only when session is in progress and row has at least one letter.
+        /// </summary>
+        /// <returns>True if a letter was removed; false if ignored (game over or row empty).</returns>
+        public bool Backspace()
+        {
+            if (_state.Phase != GamePhase.InProgress)
+            {
+                return false;
+            }
+
+            if (_state.CurrentRowLetters.Length == 0)
+            {
+                return false;
+            }
+
+            string newRow = _state.CurrentRowLetters.Substring(0, _state.CurrentRowLetters.Length - 1);
+            _state = new GameState(_state.HiddenWord, _state.Attempts, newRow, _state.Phase);
+            return true;
+        }
     }
 }
