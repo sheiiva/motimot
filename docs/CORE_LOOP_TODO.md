@@ -9,7 +9,7 @@ Checklist for the **Core loop** phase (see [GAME_SPECIFICATION.md](GAME_SPECIFIC
 - [x] **1.1** Capture letter input (keyboard or on-screen): add typed letter to current row, up to `GameConstants.WordLength` characters. → `SessionController.AddLetter(char)`.
 - [x] **1.2** Capture backspace: remove last letter from current row. → `SessionController.Backspace()`.
 - [x] **1.3** Capture submit: trigger validation and feedback when the row is complete (length = WordLength). → `SessionController.Submit()`; returns `SubmitResult` (Accepted, IgnoredGameOver, RowIncomplete, InvalidWord).
-- [ ] **1.4** Ignore or block input when the session is over (Phase is Won or Lost).
+- [x] **1.4** Ignore or block input when the session is over (Phase is Won or Lost). → `AddLetter`, `Backspace`, `Submit` all check `Phase != InProgress` and return early.
 
 ---
 
