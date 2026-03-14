@@ -10,7 +10,7 @@ Checklist for the **Foundation** phase (see [GAME_SPECIFICATION.md](GAME_SPECIFI
 - [x] **1.2** Add a main game scene (or designate `SampleScene` as the game scene) and document which scene is the entry point. → `Assets/Scenes/Main.unity` is the default scene (index 0 in Build Settings); see `Assets/README.md` § Entry point.
 - [x] **1.3** Define coding style and assembly layout: namespaces, naming (PascalCase for public types, etc.), and whether to use one or more `.asmdef` for game code. → See `docs/CODING_STYLE_AND_ASSEMBLIES.md`; Runtime `Motimot.asmdef`, Editor `Motimot.Editor.asmdef`; `.cursor/rules/project-standards.mdc` (alwaysApply) for the agent.
 - [x] **1.4** Document where game logic lives: which folders for core game state, UI, data (dictionary), and any editor tools. → See `Assets/README.md` § Where game logic lives.
-- [ ] **1.5** (Optional) Add a minimal README or `Assets/.../README` describing the project layout for future contributors.
+- [x] **1.5** (Optional) Add a minimal README or `Assets/.../README` describing the project layout for future contributors. → Root [README.md](../README.md) points to project and key docs; [Motimot/Assets/README.md](../Motimot/Assets/README.md) is the layout reference for contributors.
 
 ---
 

@@ -1,6 +1,8 @@
 # Assets layout
 
-Folder structure for the word-of-the-day game.
+Project layout for the word-of-the-day game — use this as the reference when adding or finding code and assets.
+
+**Folder structure**
 
 | Folder | Purpose |
 |--------|---------|
