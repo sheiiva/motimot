@@ -31,15 +31,7 @@ Checklist for the **Foundation** phase (see [GAME_SPECIFICATION.md](GAME_SPECIFI
 - [x] **3.2** Define the file format (one word per line, JSON array, or other) and document it. → One word per line, UTF-8; see `docs/DICTIONARY.md`.
 - [x] **3.3** Implement **loading** the dictionary at runtime (or in editor for validation); handle encoding (e.g. UTF-8 for accents). → `WordListLoader`: `LoadFromUrlCoroutine` (UTF-8), `LoadFromText`, `LoadFromBytes(byte[])`, `LoadFromTextAsset(TextAsset)`, `LoadFromFile(path)` with explicit UTF-8. See `docs/DICTIONARY.md` § Loading.
 - [x] **3.4** Implement **validation**: `IsValidWord(string word)` returning true only if the word is in the dictionary and has the correct length. → Already implemented in `WordListLoader.IsValidWord` (length + presence in loaded set, case-insensitive).
-- [ ] **3.5** Implement **daily word selection**: `GetDailyWord(DateOnly date)` or equivalent, deterministic (e.g. hash of date → index into word list); document the algorithm so the same word is chosen for the same day everywhere.
-- [ ] **3.6** (Optional) Add a small set of test words and a way to override the daily word for testing (e.g. debug menu or test scene).
-
----
-
-## 4. Verification
-
-- [ ] **4.1** Run through the list: project structure exists, data types compile, dictionary loads and validates, daily word is deterministic for a given date.
-- [ ] **4.2** Update this document: check off completed items and add short notes if something was done differently (e.g. folder names, namespace).
+- [x] **3.5** Implement **daily word selection**: `GetDailyWord(DateOnly date)` or equivalent, deterministic (e.g. hash of date → index into word list); document the algorithm. → `WordListLoader.GetDailyWord(DateTime date)`: hash = Year*10000+Month*100+Day; index = hash mod WordCount; see `docs/DICTIONARY.md` § Daily word selection.
 
 ---
 

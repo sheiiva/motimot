@@ -164,5 +164,22 @@ namespace Motimot
 
             return _wordList[index];
         }
+
+        /// <summary>
+        /// Returns the daily word for <paramref name="date"/>. Deterministic: same date + same word list = same word for everyone.
+        /// Algorithm: hash = date.Year * 10000 + date.Month * 100 + date.Day; index = hash mod WordCount; return word at index. See docs/DICTIONARY.md.
+        /// </summary>
+        /// <returns>The word for that date, or null if the list is empty.</returns>
+        public string GetDailyWord(DateTime date)
+        {
+            if (_wordList.Count == 0)
+            {
+                return null;
+            }
+
+            int hash = date.Year * 10000 + date.Month * 100 + date.Day;
+            int index = ((hash % _wordList.Count) + _wordList.Count) % _wordList.Count;
+            return _wordList[index];
+        }
     }
 }
