@@ -72,10 +72,26 @@ namespace Motimot
             {
                 for (int col = 0; col < GameConstants.WordLength; col++)
                 {
-                    _tileTexts[row][col].text = "";
+                    string letter = GetLetterForTile(state, row, col);
+                    _tileTexts[row][col].text = letter;
                     _tileBackgrounds[row][col].color = _tileDefaultColor;
                 }
             }
+        }
+
+        private static string GetLetterForTile(GameState state, int row, int col)
+        {
+            if (row < state.AttemptsCount)
+            {
+                var attempt = state.Attempts[row];
+                if (col < attempt.Tiles.Count)
+                    return char.ToUpperInvariant(attempt.Tiles[col].Letter).ToString();
+            }
+            else if (row == state.AttemptsCount && col < state.CurrentRowLetters.Length)
+            {
+                return char.ToUpperInvariant(state.CurrentRowLetters[col]).ToString();
+            }
+            return "";
         }
 
         private void Awake()
