@@ -15,9 +15,9 @@ Checklist for the **Presentation** phase (see [GAME_SPECIFICATION.md](GAME_SPECI
 
 ## 2. Virtual keyboard
 
-- [ ] **2.1** Render an on-screen keyboard (e.g. QWERTY layout: rows of keys).
-- [ ] **2.2** Keys trigger the same input as physical keyboard: letter → `AddLetter`, backspace → `Backspace`, enter → `Submit`.
-- [ ] **2.3** Update key colors from feedback: for each letter, show the “best” state from all submitted rows (green > yellow > gray > default). Use `GameState.Attempts` to derive per-letter feedback.
+- [x] **2.1** Render an on-screen keyboard (e.g. QWERTY layout: rows of keys).
+- [x] **2.2** Keys trigger the same input as physical keyboard: letter → `AddLetter`, backspace → `Backspace`, enter → `Submit`.
+- [x] **2.3** Update key colors from feedback: for each letter, show the “best” state from all submitted rows (green > yellow > gray > default). Use `GameState.Attempts` to derive per-letter feedback.
 
 ---
 

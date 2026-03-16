@@ -1,7 +1,9 @@
 {
     "name": "Motimot",
     "rootNamespace": "Motimot",
-    "references": [],
+    "references": [
+        "Unity.InputSystem"
+    ],
     "includePlatforms": [],
     "excludePlatforms": [],
     "allowUnsafeCode": false,

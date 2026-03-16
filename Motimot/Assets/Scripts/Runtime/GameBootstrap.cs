@@ -11,6 +11,7 @@ namespace Motimot
         [SerializeField] private TextAsset _fallbackWordList;
         [SerializeField] private KeyboardInputBridge _keyboardInputBridge;
         [SerializeField] private GameGridView _gameGridView;
+        [SerializeField] private VirtualKeyboardView _virtualKeyboard;
 
         private WordListLoader _loader;
         private SessionController _controller;
@@ -67,6 +68,9 @@ namespace Motimot
 
             if (_gameGridView != null)
                 _gameGridView.Bind(_controller);
+
+            if (_virtualKeyboard != null)
+                _virtualKeyboard.Bind(_controller);
         }
     }
 }

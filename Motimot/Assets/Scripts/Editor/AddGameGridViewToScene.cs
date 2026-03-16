@@ -38,10 +38,28 @@ namespace Motimot.Editor
             EditorSceneManager.MarkSceneDirty(EditorSceneManager.GetActiveScene());
         }
 
+        [MenuItem("Tools/Motimot/Add Virtual Keyboard")]
+        public static void AddVirtualKeyboard()
+        {
+            var grid = Object.FindFirstObjectByType<GameGridView>();
+            if (grid == null)
+            {
+                Debug.LogWarning("Add GameGridView to the scene first.");
+                return;
+            }
+            if (grid.GetComponent<VirtualKeyboardView>() != null)
+            {
+                Debug.Log("VirtualKeyboardView already exists on GameGridView.");
+                return;
+            }
+            Undo.AddComponent<VirtualKeyboardView>(grid.gameObject);
+            EditorSceneManager.MarkSceneDirty(EditorSceneManager.GetActiveScene());
+        }
+
         [MenuItem("Tools/Motimot/Add Game Bootstrap")]
         public static void AddBootstrap()
         {
-            var bootstrap = Object.FindObjectOfType<GameBootstrap>();
+            var bootstrap = Object.FindFirstObjectByType<GameBootstrap>();
             if (bootstrap != null)
             {
                 Debug.Log("GameBootstrap already exists in scene.");
@@ -53,12 +71,16 @@ namespace Motimot.Editor
             var comp = go.AddComponent<GameBootstrap>();
             go.AddComponent<KeyboardInputBridge>();
 
-            var grid = Object.FindObjectOfType<GameGridView>();
-            if (grid != null)
+            var grid = Object.FindFirstObjectByType<GameGridView>();
+            var virtualKb = Object.FindFirstObjectByType<VirtualKeyboardView>();
+            if (grid != null || virtualKb != null)
             {
                 var so = new SerializedObject(comp);
-                so.FindProperty("_gameGridView").objectReferenceValue = grid;
+                if (grid != null)
+                    so.FindProperty("_gameGridView").objectReferenceValue = grid;
                 so.FindProperty("_keyboardInputBridge").objectReferenceValue = go.GetComponent<KeyboardInputBridge>();
+                if (virtualKb != null)
+                    so.FindProperty("_virtualKeyboard").objectReferenceValue = virtualKb;
                 var fallback = AssetDatabase.LoadAssetAtPath<TextAsset>("Assets/Data/words-fallback.txt");
                 if (fallback != null)
                     so.FindProperty("_fallbackWordList").objectReferenceValue = fallback;
